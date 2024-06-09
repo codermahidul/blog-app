@@ -23,8 +23,8 @@ class AdminAuthenticateController extends Controller
 
     public function handleLogin(HandleLoginRequest $request){
         $request->authenticate();
-
-        return redirect()->route('admin.dashboard')->with('success', __('Successfully logged in.'));
+        toast('Successfully logged in.','success')->width(400);
+        return redirect()->route('admin.dashboard');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -51,7 +51,7 @@ class AdminAuthenticateController extends Controller
         $admin->save();
 
         Mail::to($request->email)->send(new AdminPasswordResetLinkMail($token, $request->email));
-
+        // toast('Password reset link sent! Check your email.','success')->width(400);
         return redirect()->back()->with('success', __('Password reset link sent! Check your email.'));
     }
 
@@ -69,7 +69,7 @@ class AdminAuthenticateController extends Controller
          $admin->password = Hash::make($request->password);
          $admin->remember_token = null;
          $admin->save();
-
+         toast('Your password reset successfull','success')->width(400);
          return redirect()->route('admin.login')->with('success', __('Your Password reset successfull'));
     }
 
