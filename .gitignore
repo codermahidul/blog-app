@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 
 resources/views/dist
+resources/views/top-news-frontend-template
