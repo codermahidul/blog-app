@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminPasswordUpdateSecondRequest;
 use App\Http\Requests\AdminProfileUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -78,6 +81,15 @@ class ProfileController extends Controller
             $admin->email = $request->input('email');
             $admin->save();
             return back()->with('success', __('Profile update successfull.'));
+    }
+
+
+    public function passwordUpdate(AdminPasswordUpdateSecondRequest $request, $id){
+        $admin = Admin::findOrFail($id);
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+        return back()->with('success', __('Password update successfull'));
     }
 
     /**

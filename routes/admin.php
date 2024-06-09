@@ -20,5 +20,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'],function(){
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'],function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AdminAuthenticateController::class, 'logout'])->name('logout');
+    Route::put('/admin/password/update/{id}', [ProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::resource('/profile', ProfileController::class);
 });

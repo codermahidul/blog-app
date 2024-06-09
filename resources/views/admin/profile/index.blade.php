@@ -68,35 +68,42 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
-                        <form method="PUT" action="" class="needs-validation" novalidate="">
+                        <form method="post" action="{{ route('admin.password.update',$user->id) }}" class="needs-validation" novalidate="">
                             @csrf
+                            @method('PUT')
                             <div class="card-header">
                                 <h4>{{ __('Update Password') }}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="form-group col-md-12 col-12">
                                     <label>{{ __('Old Password') }}</label>
-                                    <input type="password" class="form-control" value="" required=""
-                                        name="name">
-                                    <div class="invalid-feedback">
-                                        {{ __('Your old password') }}
-                                    </div>
+                                    <input type="password" class="form-control"
+                                        name="current_password">
+                                    @error('current_password')
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                     <label>{{ __('New Password') }}</label>
-                                    <input type="password" class="form-control" value="" required=""
-                                        name="new-password">
-                                    <div class="invalid-feedback">
-                                        {{ __('Your New password') }}
-                                    </div>
+                                    <input type="password" class="form-control"  
+                                        name="password">
+                                        @error('password')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                 </div>
                                 <div class="form-group col-md-12 col-12">
                                     <label>{{ __('Confirm Password') }}</label>
-                                    <input type="password" class="form-control" value="" required=""
-                                        name="password-confirmation">
-                                    <div class="invalid-feedback">
-                                        {{ __('Confirm password') }}
-                                    </div>
+                                    <input type="password" class="form-control" 
+                                        name="password_confirmation">
+                                        @error('password_confirmation')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="card-footer text-right">
