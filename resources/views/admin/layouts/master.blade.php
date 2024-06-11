@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/summernote/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/datatables/datatables.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link
+        rel="stylesheet"href="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
@@ -76,6 +77,8 @@
     <script src="{{ asset('admin/assets/modules/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}">
     </script>
+    <script src="{{ asset('admin/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+
     <script src="{{ asset('admin/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
     {{-- Sweetalert 2 cdn --}}
     @include('sweetalert::alert')
@@ -86,12 +89,16 @@
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $(document).ready(function() {
+            //Tags
+            $(".inputtags").tagsinput('items');
+            //ajax call
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            //dekete
             $('.delete-item').on('click', function(e) {
                 e.preventDefault();
 
@@ -111,30 +118,27 @@
                             url: url,
                             success: function(data) {
                                 if (data.status == 'success') {
-                                  Swal.fire({
-                                    title: "Deleted!",
-                                    text: data.message,
-                                    icon: "success"
-                                  });
-                                  window.location.reload();
-                                }else if(data.status == 'error'){
-                                  Swal.fire({
-                                    title: "Error!",
-                                    text: data.message,
-                                    icon: "error"
-                                  });
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: data.message,
+                                        icon: "success"
+                                    });
+                                    window.location.reload();
+                                } else if (data.status == 'error') {
+                                    Swal.fire({
+                                        title: "Error!",
+                                        text: data.message,
+                                        icon: "error"
+                                    });
                                 }
                             },
-                            error: function(xhr,status,error) {
+                            error: function(xhr, status, error) {
                                 console.error(error)
                             },
                         });
 
                     }
                 });
-
-
-
             })
         });
     </script>
