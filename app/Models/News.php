@@ -23,4 +23,8 @@ class News extends Model
         'show_at_popular',
         'status',
     ];
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class, 'news_tags');
+    }
 }

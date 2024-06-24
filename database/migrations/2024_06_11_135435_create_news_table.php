@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('slug');
             $table->string('thumbnail');
             $table->text('content');
-            $table->string('meta_title');
-            $table->text('meta_description');
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->enum('is_breaking_news',['yes','no'])->default('no');
             $table->enum('show_at_slider',['yes','no'])->default('no');
             $table->enum('show_at_popular',['yes','no'])->default('no');
