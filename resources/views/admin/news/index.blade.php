@@ -25,10 +25,10 @@
                             </li>
                         @endforeach
                     </ul>
-                    {{-- <div class="tab-content tab-bordered" id="myTab3Content">
+                    <div class="tab-content tab-bordered" id="myTab3Content">
                         @foreach ($languages as $language)
                         @php
-                            $categories = \App\Models\Category::where('language', $language->slug)->latest()->get();
+                            $allNews = \App\Models\News::where('language', $language->slug)->latest()->get();
                         @endphp
                             <div class="tab-pane fade show {{ $loop->index == 0 ? 'active' : '' }}"
                                 id="home{{ $language->id }}" role="tabpanel" aria-labelledby="home-tab">
@@ -39,30 +39,47 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>{{ __('Category Name') }}</th>
-                                                <th>{{ __('Slug') }}</th>
-                                                <th>{{ __('Show at Nav') }}</th>
+                                                <th>{{ __('Thumbnail') }}</th>
+                                                <th>{{ __('Category') }}</th>
+                                                <th>{{ __('Author') }}</th>
+                                                <th>{{ __('Title') }}</th>
+                                                <th>{{ __('Is Breaking') }}</th>
+                                                <th>{{ __('Sho at Slider') }}</th>
+                                                <th>{{ __('Sho at Popular') }}</th>
                                                 <th>{{ __('Status') }}</th>
                                                 <th>{{ __('Action') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($categories as $category)
+                                            @foreach ($allNews as $news)
                                             <tr>
                                                 <td>{{ ++$loop->index }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td>{{ $category->slug }}</td>
                                                 <td>
-                                                    <span class="badge badge-{{ $category->show_at_nav == 'yess' ? 'success' : 'warning' }}">{{ $category->show_at_nav == 'yess' ? __('Yes') : _('No') }}</span>
-                                                </td>                                               
-                                                <td>
-                                                    <span class="badge badge-{{ $category->status == 'active' ? 'success' : 'danger' }}">{{ $category->status == 'active' ? __('Active') : _('Inactive') }}</span>
+                                                    <img width="100" src="{{ asset($news->thumbnail) }}" alt="">
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.category.edit',$category->id) }}" class="btn btn-primary"><i
+                                                    @php
+                                                        $categoryName = \App\Models\Category::where('id',$news->category_id)->first()->name;
+                                                    @endphp
+                                                    {{ $categoryName }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $author = \App\Models\Admin::where('id',$news->author_id)->first()->name;
+                                                    @endphp
+                                                    {{ $author }}
+                                                </td>
+                                                <td>
+                                                    {{ $news->title }}
+                                                </td>
+                                                <td>Breaking News</td>
+                                                <td>Show at slider</td>
+                                                <td>Show at popular</td>
+                                                <td>
+                                                    <a href="" class="btn btn-primary"><i
                                                             class="fas fa-edit"></i></a>
 
-                                                    <a href="{{ route('admin.category.destroy',$category->id) }}" class="btn btn-danger delete-item"><i
+                                                    <a href="" class="btn btn-danger delete-item"><i
                                                             class="fas fa-trash"></i></a>
 
                                                 </td>
@@ -73,7 +90,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div> --}}
+                    </div>
                 </div>
             </div>
 
