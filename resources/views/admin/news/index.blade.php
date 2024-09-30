@@ -103,7 +103,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <a href="" class="btn btn-primary"><i
+                                                        <a href="{{ route('admin.news.edit',$news->id) }}" class="btn btn-primary"><i
                                                                 class="fas fa-edit"></i></a>
 
                                                         <a href="" class="btn btn-danger delete-item"><i
@@ -137,26 +137,6 @@
             });
         @endforeach
 
-        //Start jQuer
-
-        //     $(document).ready(function(){
-        //         $('.toggleStatus').on('click', function(){
-        //            let id = $(this).data('id');
-        //            let name = $(this).data('name');
-        //            let status = $(this).prop('check') ? 1 : 0;
-
-        //            //ajax request
-        //            $.ajax({
-        //             method: 'GET',
-        //             url: '{{ route('admin.toggleNewsStatus') }}',
-        //             data: {
-        //                 id:id,
-        //                 name:name,
-        //                 status: status,
-        //             }
-        //         })
-        //     })
-        // )}
 
         $(document).ready(function() {
             $('.toggleStatus').on('click', function() {

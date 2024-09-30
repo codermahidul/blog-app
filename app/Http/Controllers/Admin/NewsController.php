@@ -176,7 +176,9 @@ class NewsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $language = Language::all();
+        $news = News::find($id);
+        return view('admin.news.edit',compact('language','news'));
     }
 
     /**
