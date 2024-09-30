@@ -29,7 +29,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'],fu
     Route::resource('language', LanguageController::class);
     //Category
     Route::resource('category', CategoryController::class);
-    //News
     Route::get('fatch-category',[NewsController::class, 'fatchCategory'])->name('fatchCategory');
+    //News
+    Route::get('news-status', [NewsController::class, 'toggleNewsStatus'])->name('toggleNewsStatus');
     Route::resource('news',NewsController::class);
 });

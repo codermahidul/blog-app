@@ -70,8 +70,8 @@ class NewsController extends Controller
 
         if($request->input('show_at_popular') == 'on'){
             $show_at_popular = 'yes';
-        }       
-        
+        }
+
         if($request->input('status') == 'on'){
             $status = 'active';
         }
@@ -110,11 +110,65 @@ class NewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Toggle Status.
      */
-    public function show(string $id)
+    public function toggleNewsStatus(Request $request)
     {
-        //
+        try {
+            $news = News::findOrFail($request->id);
+        $message = '';
+
+
+        if ($request->name == 'status') {
+
+            if ($request->status == 'true') {
+                $news->status = 'active';
+                $message = 'Status active successfully!';
+            } else {
+                $news->status = 'inactive';
+                $message = 'Status inactive successfully!';
+            }
+            $news->save();
+            $message;
+        }
+        elseif($request->name == 'is_breaking'){
+            if ($request->status == 'true') {
+                $news->is_breaking_news = 'yes';
+                $message = 'News on breaking!';
+            } else {
+                $news->is_breaking_news = 'no';
+                $message = 'News not on breaking!';
+            }
+            $news->save();
+            $message;
+        }
+        elseif ($request->name == 'show_at_slider') {
+            if ($request->status == 'true') {
+                $news->show_at_slider = 'yes';
+                $message = 'News show at slider!';
+            } else {
+                $news->show_at_slider = 'no';
+                $message = 'News not show at slider!';
+            }
+            $news->save();
+            $message;
+        }
+        elseif($request->name == 'show_at_popular'){
+            if ($request->status == 'true') {
+                $news->show_at_popular = 'yes';
+                $message = 'News show at popular';
+            } else {
+               $news->show_at_popular = 'no';
+               $message= 'News not show at popular';
+            }
+            $news->save();
+            $message;
+        }
+
+        return response(['status' => 'success', 'message' => __($message)]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
