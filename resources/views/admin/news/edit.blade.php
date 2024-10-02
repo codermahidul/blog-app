@@ -7,11 +7,12 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h4>{{ __('Create News') }}</h4>
+                <h4>{{ __('Update News') }}</h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.news.update',$news->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label for="language">{{ __('Language') }}</label>
                         <select name="language" id="language" class="form-control select2">
@@ -27,7 +28,9 @@
                     <div class="form-group">
                         <label for="category">{{ __('Category') }}</label>
                         <select name="category" id="category" class="form-control select2">
-
+                            @foreach ($categories as $category)
+                                <option {{ ($category->id == $news->category_id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                         @error('category')
                             <p class="text-danger">{{ $message }}</p>
@@ -61,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tags">{{ __('Tags') }}</label>
-                        <input type="text" name="tags" id="tags" class="form-control inputtags" value="">
+                        <input type="text" name="tags" id="tags" class="form-control inputtags" value="{{ formatTage($news->tags()->pluck('name')->toArray()) }}">
                         @error('tags')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -118,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ __('Create News') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Update News') }}</button>
                 </form>
             </div>
         </div>
@@ -127,8 +130,16 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
 
+        $(document).ready(function(){
+            $('.image-preview').css({
+                "background-image": "url({{ asset($news->thumbnail) }})",
+                "background-size": "cover",
+                "background-position": "center center",
+            });
+        });
+
+        $(document).ready(function() {
             //Fatch category by ajax
             $('#language').on('change', function() {
                 let value = $(this).val();

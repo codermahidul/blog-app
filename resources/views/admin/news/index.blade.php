@@ -103,11 +103,15 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.news.edit',$news->id) }}" class="btn btn-primary"><i
-                                                                class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin.news.edit', $news->id) }}"
+                                                            class="btn btn-primary"><i class="fas fa-edit"></i></a>
 
-                                                        <a href="" class="btn btn-danger delete-item"><i
+                                                        <a href="{{ route('admin.news.destroy', $news->id) }}"
+                                                            class="btn btn-danger delete-item"><i
                                                                 class="fas fa-trash"></i></a>
+
+                                                        <a href="{{ route('admin.news.copy', $news->id) }}"
+                                                            class="btn btn-secondary"><i class="fas fa-copy"></i></a>
 
                                                     </td>
                                                 </tr>
