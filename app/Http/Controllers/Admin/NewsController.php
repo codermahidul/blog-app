@@ -279,7 +279,12 @@ class NewsController extends Controller
 
     public function copyNews(string $id){
 
+        $news = News::findOrFail($id);
+        $newsCopy = $news->replicate();
+        $newsCopy->save();
+        toast(__('News Copied Successfully!'), 'success')->width('350');
 
+        return redirect()->back();
 
     }
 

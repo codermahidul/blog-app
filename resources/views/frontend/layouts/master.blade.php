@@ -20,11 +20,35 @@
     <!-- Start Footer -->
     @include('frontend.layouts.footer')
     <!-- End Footer -->
-    
+
 
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
 
     <script type="text/javascript" src="{{ asset('frontend/assets/js/index.bundle.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#sliteLanguage').on('change', function(){
+                let langCode = $(this).val();
+
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('lang') }}",
+                    data: {
+                        langCode: langCode,
+                    },
+                    success: function(data){
+                        if (data.status == 'success') {
+                            window.location.reload();
+                        }
+                    },
+                    error: function(error){
+                        console.error(error);
+                    }
+                });
+            })
+        });
+    </script>
+
 </body>
 
 </html>

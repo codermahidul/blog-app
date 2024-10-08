@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     use HasFactory;
+
+    public function scopeActiveEntries($query){
+        return $query->where([
+            'status' => 'active',
+            'is_approved' => 'approved',
+        ]);
+    }
+
+
+    public function scopeWithLocalize($query){
+        return $query->where([
+            'language'=> getLanguage(),
+        ]);
+    }
+
     protected $fillable =[
         'language',
         'category_id',
@@ -21,6 +36,8 @@ class News extends Model
         'is_breaking_news',
         'show_at_slider',
         'show_at_popular',
+        'is_approved',
+        'views',
         'status',
     ];
 
@@ -33,7 +50,7 @@ class News extends Model
     }
 
     public function admin(){
-        return $this->belongsTo(Admin::class, 'author_id');
+        return $this->belongsTo(Admin::class,'author_id');
     }
 
 

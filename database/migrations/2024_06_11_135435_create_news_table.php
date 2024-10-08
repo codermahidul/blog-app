@@ -26,6 +26,8 @@ return new class extends Migration
             $table->enum('show_at_slider',['yes','no'])->default('no');
             $table->enum('show_at_popular',['yes','no'])->default('no');
             $table->enum('status',['active','inactive'])->default('inactive');
+            $table->integer('views')->default(0);
+            $table->enum('is_approved',['approved','pending'])->default('pending');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
